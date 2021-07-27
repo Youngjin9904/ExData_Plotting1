@@ -1,0 +1,13 @@
+png("plot3.png")
+proj <- read.delim("household_power_consumption.txt", header=T, sep=";",na.strings="?")
+dim(proj)
+data <- proj[proj$Date %in% c("1/2/2007","2/2/2007"),]
+Time <- strptime(paste(data$Date, data$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
+data <- cbind(Time, data)
+plot(data$Time, data$Sub_metering_1, type="l", col="black",xlab="",ylab="Energy sub metering")
+lines(data$Time, data$Sub_metering_2, col="red")
+lines(data$Time, data$Sub_metering_3, col="blue")
+labels <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
+columnlines <- c("black","red","blue")
+legend("topright",legend=labels,col=columnlines, lty="solid")
+dev.off()
